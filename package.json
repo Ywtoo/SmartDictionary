@@ -1,0 +1,12 @@
+{
+  "name": "smart-dictionary",
+  "version": "1.0",
+  "scripts": {
+    "build": "rollup popup/index.js --file dist/popup.bundle.js --format iife"
+  },
+  "private": true,
+  "devDependencies": {
+    "@google/generative-ai": "0.15.0",
+    "rollup": "4.22.4"
+  }
+}

@@ -1,7 +1,6 @@
-
-
 document.addEventListener('mouseup', async (event) => { //Chama o balão
     const palavraSelecionada = window.getSelection().toString().trim(); //Pega oque foi selecionado
+    console.log('mouseup iniciou')
 
     if (palavraSelecionada) {
         // Remove balões existentes
@@ -31,62 +30,25 @@ document.addEventListener('mouseup', async (event) => { //Chama o balão
         balao.style.borderRadius = '5px';
         balao.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
         balao.style.zIndex = '1000';
+        
+        //prompt inicial
+        const myprompt = `Apenas o significado de ${palavraSelecionada} e outras palavras com mesmo singnificado em ${ idioma } seguindo essa estrutura: \n "Significado da palavra" \n \n Sinonimos: ...`
+        module.exports = {
+            myprompt,
+         }
 
-        const prompt = `Apenas o significado de ${palavraSelecionada} e outras palavras com mesmo singnificado em ${idiomaDeTraducao} seguindo essa estrutura: \n "Significado da palavra" \n \n Sinonimos: ...`
-
-        const significado = await apiCall(palavraSelecionada, apiKey);
+        //chama a IA
         balao.textContent = significado; // Atualiza o texto do balão com o significado
     }
 });
 
 // Remove o balão ao clicar em qualquer lugar fora do balão
 document.addEventListener('mousedown', (event) => {
+    console.log('mousedown iniciou')
     const baloesExistentes = document.querySelectorAll('.dicionario-balao');
     baloesExistentes.forEach(balao => {
         if (!balao.contains(event.target)) {
             balao.remove();
         }
     });
-});
-
-// Função para chamar a API Gemini e gerar o conteúdo
-async function apiCall(prompt, chaveAPI) {
-    const apiKey = chaveAPI; // Substitua com a sua chave de API
-    const url = 'https://generativeai.googleapis.com/v1beta2/generateText'; // URL da API
-
-    const body = JSON.stringify({
-        model: 'gemini-1.5-flash', // Modelo do Gemini que você deseja usar
-        prompt: prompt,           // O prompt que você quer gerar
-    });
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`, // Autenticação com a API Key
-            },
-            body: body,
-        });
-
-        // Verifique se a resposta foi bem-sucedida
-        if (!response.ok) {
-            throw new Error('Erro ao gerar conteúdo: ' + response.statusText);
-        }
-
-        const data = await response.json();
-        return data;  // Retorna a resposta da API
-    } catch (error) {
-        console.error('Erro ao chamar Gemini API:', error);
-        return null;
-    }
-}
-
-// Exemplo de uso
-const prompt = 'Escreva uma história sobre uma mochila mágica.';
-apiCall(prompt).then(data => {
-    if (data) {
-        console.log('Conteúdo gerado:', data);
-        // Aqui você pode tratar o resultado como quiser, por exemplo, exibir no balão
-    }
 });
