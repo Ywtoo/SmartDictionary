@@ -2,8 +2,8 @@ export const getConfig = async () => {
     return new Promise((resolve) => {
         chrome.storage.sync.get(['apiKey', 'idioma'], (result) => {
             resolve({
-                apiKey: result.apiKey || 'Sem Api',
-                idioma: result.idioma || 'Ta errado isso aqui'
+                apiKey: result.apiKey || 'Null',
+                idioma: result.idioma || 'English'
             });
         });
     });

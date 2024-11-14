@@ -4,7 +4,7 @@
   "type": "module",
   "description": "",
   "main": "src/main.js",
- "scripts": {
+  "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w"
   },
@@ -17,5 +17,8 @@
     "@rollup/plugin-html": "^1.0.4",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "rollup": "^4.22.4"
+  },
+  "dependencies": {
+    "marked": "^15.0.0"
   }
 }

@@ -10,7 +10,6 @@ import {
   export async function initModel() {
       const config = await getConfig();
       const genAI = new GoogleGenerativeAI(config.apiKey);
-      console.log(config.apiKey)
       
       model = genAI.getGenerativeModel({
           model: 'gemini-1.5-flash',

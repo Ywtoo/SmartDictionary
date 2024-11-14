@@ -15,17 +15,27 @@
     "contextMenus",
     "storage"
   ],
-
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["dist/content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "styles/style.css"
+      ],
+      "js": [
+        "dist/content.js"
+      ]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["dist/popup.js"],
-      "matches": ["chrome-extension://*/*"]
+      "resources": [
+        "dist/popup.js"
+      ],
+      "matches": [
+        "chrome-extension://*/*"
+      ]
     }
   ],
   "icons": {
