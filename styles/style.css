@@ -119,3 +119,80 @@
 .dictionary-balloon::-webkit-scrollbar-thumb:hover {
     background: #a1a1a1;
 }
+
+/* Mensagens do usuário */
+.message.usuario {
+    background-color: #f1f1f1;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: left;
+    color: #333;
+    max-width: 80%;
+    margin-left: auto;
+    position: relative;
+}
+
+/* Ajusta a puxada da mensagem do usuário para se alinhar com o balão */
+.message.usuario::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -12px;  /* Ajuste para não ultrapassar o limite do balão */
+    border-left: 12px solid #f1f1f1; /* Cor da puxada */
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    transform: translateY(-50%);
+}
+
+/* Mensagens da IA */
+.message.ia {
+    background-color: #d1f0d1;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: left;
+    color: #333;
+    max-width: 80%;
+    margin-right: auto;
+    position: relative;
+}
+
+/* Ajusta a puxada da mensagem da IA para se alinhar com o balão */
+.message.ia::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -12px;  /* Ajuste para não ultrapassar o limite do balão */
+    border-right: 12px solid #d1f0d1; /* Cor da puxada */
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    transform: translateY(-50%);
+}
+
+/* Estilo do balão para o campo de input */
+.input-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.input-container input {
+    padding: 5px;
+    flex-grow: 1;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.input-container button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.input-container button:hover {
+    background-color: #0056b3;
+}
