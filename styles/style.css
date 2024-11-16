@@ -196,3 +196,23 @@
 .input-container button:hover {
     background-color: #0056b3;
 }
+
+.mini-balloon {
+    position: fixed;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 10000;
+    font-size: 14px;
+}
+
+.mini-balloon:hover {
+    background: #f0f0f0;
+}

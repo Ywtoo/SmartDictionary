@@ -2,8 +2,16 @@ import { runPrompt } from './iaHandler.js';
 import { getConfig } from './config.js';
 import { marked } from 'marked';
 
+export async function showDictionaryBalloon(savedSelection) {
+    // Restaurar a seleção manualmente usando as posições armazenadas
+    const range = document.createRange();
+    range.setStart(savedSelection.startContainer, savedSelection.startOffset);
+    range.setEnd(savedSelection.endContainer, savedSelection.endOffset);
 
-export async function showDictionaryBalloon(event) {
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+
     const selectedText = window.getSelection().toString();
     if (!selectedText) return;
 
@@ -26,9 +34,9 @@ export async function showDictionaryBalloon(event) {
             // Se for uma expressão ou frase (mais de uma palavra)
             prompt = `Explicação e exemplo de uso para a expressão "${word}" no idioma ${config.idioma}. 
            Formato esperado:
-           # "${word}" 
+           # ${word}
            ## Definições:
-           - Explique o significado da expressão no idioma e tradução de ${config.idioma}.
+           - Explique o significado da expressão no idioma e tradução se não for o mesmo idioma de ${config.idioma}.
            - Explique como se usa essa expressão no contexto da língua.
            **Exemplo**: 
            - "Eu gosto muito de [${word}] como [exemplo] no cotidiano."
@@ -39,7 +47,7 @@ export async function showDictionaryBalloon(event) {
             prompt = `Significado de "${word}" em ${config.idioma}. Escreva como um dicionário de dois exemplos do dia a dia. Explicaçoes em ${config.idioma}.
            Formato esperado:
            # "${word}"
-           ## Definições: (coloque 1 tradução direta e 2 palavras mais próximas em significado na língua escolhida)
+           ## Definições: (coloque 1 tradução direta se não for o mesmo idioma e 2 palavras mais próximas em significado na língua escolhida)
            -...
            -...
            **Sinônimos**: sinonimo1, sinonimo2, ...
