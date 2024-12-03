@@ -2,9 +2,10 @@
   "manifest_version": 3,
   "name": "SmartDictionary",
   "description": "A dictionary using IA",
-  "version": "1.1.4",
+  "version": "1.5.2",
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "action": {
     "default_popup": "popup/index.html",
@@ -13,7 +14,9 @@
   "permissions": [
     "activeTab",
     "contextMenus",
-    "storage"
+    "tabs",
+    "storage",
+    "scripting"
   ],
   "content_scripts": [
     {
@@ -37,6 +40,9 @@
         "chrome-extension://*/*"
       ]
     }
+  ],
+  "host_permissions": [
+    "https://*/*"
   ],
   "icons": {
     "16": "icons/icon16.png",

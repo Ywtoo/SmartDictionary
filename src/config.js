@@ -4,7 +4,7 @@ export const getConfig = async () => {
             resolve({
                 apiKey: result.apiKey || '',
                 idioma: result.idioma || 'English',
-                testingMode: result.testingMode || true
+                testingMode: result.testingMode || false,
             });
         });
     });

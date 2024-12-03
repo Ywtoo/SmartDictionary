@@ -2,31 +2,28 @@ import { runPrompt } from "./iaHandler.js";
 import { getConfig } from "./config.js";
 import { marked } from "marked";
 import { generatePrompt } from './prompts';
-import { createBalloon, positionBalloon} from './createBallon.js';
+import { createBalloon, positionBalloon } from './createBallon.js';
 
 //-------------------Main function------------------------------
-export async function showDictionaryBalloon(savedSelection) {
+export async function showDictionaryBalloon(selectionOrWord) { // Nome mais descritivo
   try {
-    const range = createRangeFromSelection(savedSelection);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
+    let word;
 
-    const selectedText = window.getSelection().toString();
-    if (!selectedText) return;
+    if (typeof selectionOrWord === 'string') { // Verifica se é uma string
+      word = selectionOrWord;
+    } else {
+      word = getSelectedText(selectionOrWord); // Assume que é uma seleção
+      if (!word) return; // Sai se não houver palavra na seleção
+    }
 
-    const word = getWordAroundSelection();
-    console.log(word);
-    if (!word) return;
 
     clearPreviousBalloon()
 
     //Preparar e iniciar balão------------------
     const config = await getConfig();
     const balloon = createBalloon(word);
-    positionBalloon(balloon);  
-    document.body.appendChild(balloon);  
-
+    positionBalloon(balloon);
+    document.body.appendChild(balloon);
 
     const meaningDiv = balloon.querySelector(".meaning");
 
@@ -39,16 +36,32 @@ export async function showDictionaryBalloon(savedSelection) {
     if (config.testingMode) {
       meaningDiv.textContent = prompt;
     } else {
-      let accumulatedText = '';
+
+      currentIndex = 0;
+      accumulatedText = '';
+      accumulatedHtml = '';
 
       const handleChunk = (chunk) => updateMeaningContent(chunk, meaningDiv, accumulatedText);
-
+      accumulatedText = '';
       await runPrompt(prompt, handleChunk);
     }
 
   } catch (error) {
     handleError(error);
   }
+}
+
+function getSelectedText(savedSelection) { //Mantive a função getSelectedText para maior clareza
+  const range = createRangeFromSelection(savedSelection);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  const selectedText = window.getSelection().toString();
+  if (!selectedText) return null; // Retorna explicitamente null se não houver texto
+
+  const word = getWordAroundSelection();
+  return word; // Retorna a palavra se houver
 }
 
 // ------------------------Restaurar seleção-----------------------
@@ -63,7 +76,7 @@ let currentIndex = 0;
 let accumulatedText = '';
 let accumulatedHtml = '';
 
-function updateMeaningContent(chunk, meaningDiv, typingSpeed = 7) {
+function updateMeaningContent(chunk, meaningDiv, typingSpeed = 5) {
   accumulatedText += chunk;
 
   accumulatedHtml = marked(accumulatedText);

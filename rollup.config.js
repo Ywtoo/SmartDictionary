@@ -1,5 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import polyfillNode from 'rollup-plugin-polyfill-node';
 
 export default [
   {
@@ -7,11 +9,13 @@ export default [
     output: {
       file: 'dist/content.js',
       format: 'iife',
-      name: 'smartDictionary'
+      name: 'smartDictionary',
     },
     plugins: [
-      resolve(),
-      commonjs()
+      resolve({ browser: true, mainFields: ['browser', 'module', 'main'] }),
+      commonjs(),
+      json(),
+      polyfillNode(),
     ]
   },
   {
@@ -19,7 +23,7 @@ export default [
     output: {
       file: 'dist/popup.js',
       format: 'iife',
-      name: 'smartDictionaryPopup'
+      name: 'smartDictionaryPopup',
     },
     plugins: [
       resolve(),

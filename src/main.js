@@ -1,4 +1,5 @@
 import { showDictionaryBalloon } from './dictionaryBallon.js';
+import './text-from-images/printSelection.js';
 
 let savedSelection = null;  // Variável global para armazenar a seleção de texto
 

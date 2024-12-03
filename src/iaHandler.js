@@ -1,8 +1,4 @@
-import {
-    GoogleGenerativeAI,
-    HarmBlockThreshold,
-    HarmCategory
-} from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getConfig } from './config.js';
 
 let model = null;
@@ -24,7 +20,7 @@ export async function initModel() {
     return model;
 }
 
-//Função Princial para rodar os prompts (19/11/2024 gemini esta muito ruim sempre da erro)
+//Função Princial para rodar os prompts
 export async function runPrompt(prompt, onStreamChunk = null) {
     try {
         await initModel();
@@ -64,3 +60,43 @@ export async function runPrompt(prompt, onStreamChunk = null) {
         throw e;
     }
 }
+
+export async function getGeminiText(imageDataURL, model) {
+    try {
+        const image_parts = imageDataURL.split(",");
+        const image_base64 = image_parts[1]; // Só precisa dos dados base64
+        console.log(image_base64)
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const response = await model.generateContent([
+            {
+                inlineData: {
+                    data: image_base64,
+                    mimeType: 'image/png' // Ou o tipo MIME correto
+                }
+            },
+            {
+                text: `Escreva nada alem do texto dessa imagem. Se não tiver texto, retorne vazio.`
+            }
+        ]);
+
+        // ----> LOG DETALHADO <----
+        console.log("Resposta completa do Gemini (estrutura detalhada):", JSON.stringify(response, null, 2));
+
+        // Extrair o texto CORRETAMENTE
+        const extractedText = response?.response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  
+  
+        if (!extractedText) {
+          console.error("Não foi possível extrair o texto da resposta do Gemini. Resposta:", JSON.stringify(response, null, 2));
+          throw new Error("Não foi possível extrair o texto.");
+        }
+  
+        return extractedText;
+  
+    } catch (error) {
+      console.error("Erro na API Gemini:", error); // Log mais descritivo
+      throw error; // Relança o erro para ser tratado pelo chamador
+    }
+  }

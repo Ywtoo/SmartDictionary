@@ -25,7 +25,7 @@ export function generatePrompt(word, idioma, isMultipleWords) {
         Significado de "${word}" em ${idioma}. Escreva como um dicionário.
         ${traducao}
 
-        **Sinônimos**: - Palavra1, Palavra 2, palavra 3(3 ate 5 palavras mais próximas em significado na língua escolhida)
+        **Sinônimos**: - Palavra1, Palavra 2, palavra 3(3 ate 5 palavras mais próximas em significado no mesmo idioma de ${word})
 
         ${exemplo}
         `;
@@ -35,5 +35,5 @@ export function generatePrompt(word, idioma, isMultipleWords) {
 // Função para montar o prompt com o contexto da conversa
 export function createPrompt(userMessage, conversationContext, idioma) {
     return `Aqui está o contexto da conversa com o usuário. Responda de forma curta, clara de acordo com o contexto: ${conversationContext}
-    Responda à última pergunta no idioma escolhido (${idioma}). Pergunta: "${userMessage}"`;
+    Responda à última pergunta no mesmo idioma da pergunta. Pergunta: "${userMessage}"`;
 }
