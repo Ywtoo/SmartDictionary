@@ -48,8 +48,7 @@ A extensão será carregada e estará pronta para uso!
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-
-Gemini API(Dentro da extensão futuramente tera tutorial de como pegar sua API)
+![GEMINI](https://img.shields.io/badge/%20%20%20%20Gemini%20API%20%20%20%20-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white&logoWidth=25)
 
 ## Contribuições 🤝
 Sinta-se à vontade para abrir issues e pull requests. Toda ajuda é bem-vinda para melhorar este projeto!
