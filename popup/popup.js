@@ -1,4 +1,4 @@
-import { getConfig, setConfig } from '../src/config.js';
+import { getConfig, setConfig } from '../scripts/config.js';
 
 document.getElementById('save').addEventListener('click', () => {
     const apiKey = document.getElementById('api-key').value;

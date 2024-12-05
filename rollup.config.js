@@ -5,7 +5,7 @@ import polyfillNode from 'rollup-plugin-polyfill-node';
 
 export default [
   {
-    input: 'src/main.js',
+    input: 'scripts/main.js',
     output: {
       file: 'dist/content.js',
       format: 'iife',
@@ -29,6 +29,6 @@ export default [
       resolve(),
       commonjs()
     ]
-  }
+  },
 ];
 

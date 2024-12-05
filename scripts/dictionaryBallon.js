@@ -1,25 +1,43 @@
-import { runPrompt } from "./iaHandler.js";
+import { runPrompt } from "./geminiAPI.js";
 import { getConfig } from "./config.js";
 import { marked } from "marked";
-import { generatePrompt } from './prompts';
+import { generatePrompt } from '../scripts/promptGenerator.js';
 import { createBalloon, positionBalloon } from './createBallon.js';
 
-//-------------------Main function------------------------------
-export async function showDictionaryBalloon(selectionOrWord) { // Nome mais descritivo
-  try {
-    let word;
+const TYPING_SPEED = 5;
+// TODO: Investigar e corrigir o bug que exige estas variáveis globais.
+// O meaningDiv fica em branco se estas variáveis forem locais.
+let currentIndex = 0;
+let accumulatedText = '';
+let accumulatedHtml = '';
 
-    if (typeof selectionOrWord === 'string') { // Verifica se é uma string
-      word = selectionOrWord;
-    } else {
-      word = getSelectedText(selectionOrWord); // Assume que é uma seleção
-      if (!word) return; // Sai se não houver palavra na seleção
-    }
+async function getWordFromSelection(selectionOrWord) {
+  if (typeof selectionOrWord === 'string') {
+    return selectionOrWord;
+  }
+
+  const range = createRangeFromSelection(selectionOrWord);
+  if (!range) return null;
+
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  const selectedText = window.getSelection().toString();
+  if (!selectedText) return null;
+
+  return getWordAroundSelection();
+}
+
+export async function showDictionaryBalloon(selectionOrWord) {
+  try {
+    const word = await getWordFromSelection(selectionOrWord);
+    if (!word) return;
 
 
     clearPreviousBalloon()
 
-    //Preparar e iniciar balão------------------
+    //Preparar e iniciar balão
     const config = await getConfig();
     const balloon = createBalloon(word);
     positionBalloon(balloon);
@@ -29,19 +47,16 @@ export async function showDictionaryBalloon(selectionOrWord) { // Nome mais desc
 
     document.body.appendChild(balloon);
 
-    const isMultipleWords = word.split(" ").length > 1;
-    const prompt = generatePrompt(word, config.idioma, isMultipleWords);
-
-    // *** NEW: Check for testing mode ***
     if (config.testingMode) {
-      meaningDiv.textContent = prompt;
+      meaningDiv.textContent = word;
+      return;
     } else {
-
       currentIndex = 0;
       accumulatedText = '';
       accumulatedHtml = '';
 
-      const handleChunk = (chunk) => updateMeaningContent(chunk, meaningDiv, accumulatedText);
+      const prompt = generatePrompt(word, 'dictionary');
+      const handleChunk = (chunk) => updateMeaningContent(chunk, meaningDiv, TYPING_SPEED);
       accumulatedText = '';
       await runPrompt(prompt, handleChunk);
     }
@@ -51,34 +66,16 @@ export async function showDictionaryBalloon(selectionOrWord) { // Nome mais desc
   }
 }
 
-function getSelectedText(savedSelection) { //Mantive a função getSelectedText para maior clareza
-  const range = createRangeFromSelection(savedSelection);
-  const selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-
-  const selectedText = window.getSelection().toString();
-  if (!selectedText) return null; // Retorna explicitamente null se não houver texto
-
-  const word = getWordAroundSelection();
-  return word; // Retorna a palavra se houver
-}
-
-// ------------------------Restaurar seleção-----------------------
+//Restaurar seleção
 function createRangeFromSelection(savedSelection) {
   const range = document.createRange();
   range.setStart(savedSelection.startContainer, savedSelection.startOffset);
   range.setEnd(savedSelection.endContainer, savedSelection.endOffset);
   return range;
 }
-//----------------------updateMeaningContent variaveis-----------------------
-let currentIndex = 0;
-let accumulatedText = '';
-let accumulatedHtml = '';
 
-function updateMeaningContent(chunk, meaningDiv, typingSpeed = 5) {
+function updateMeaningContent(chunk, meaningDiv) {
   accumulatedText += chunk;
-
   accumulatedHtml = marked(accumulatedText);
 
   let currentContent = '';
@@ -88,7 +85,7 @@ function updateMeaningContent(chunk, meaningDiv, typingSpeed = 5) {
       currentContent += accumulatedHtml[currentIndex];
       meaningDiv.innerHTML = currentContent;
       currentIndex++;
-      setTimeout(typeEffect, typingSpeed);
+      setTimeout(typeEffect, TYPING_SPEED);
     }
   }
 
@@ -104,7 +101,7 @@ function updateMeaningContent(chunk, meaningDiv, typingSpeed = 5) {
   return accumulatedText;
 }
 
-//----Função que pega a palavra inteira ao redor da seleção-----
+//Funções que pega a palavra inteira ao redor da seleção 
 function getWordAroundSelection() {
   const selection = window.getSelection();
   if (!selection.rangeCount) return null;
@@ -152,7 +149,7 @@ function adjustStartIndex(textContent, index) {
   return index;
 }
 
-// -------------------------Erros showDictionaryBalloon-------------------------------
+// -------------------------Erros-------------------------------
 function handleError(error) {
   console.error('Error in showDictionaryBalloon:', error);
   const balloon = document.querySelector(".dictionary-balloon");

@@ -8,7 +8,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "ocrImage") {
       chrome.scripting.executeScript({
           target: {tabId: tab.id},
-          files: ['src/text-from-images/printSelection.js'],
+          files: ['scripts/text-from-images/printSelection.js'],
           injectImmediately: true
       }, (injectionResults) => {
           if (chrome.runtime.lastError) {

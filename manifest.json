@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "SmartDictionary",
   "description": "A dictionary using IA",
-  "version": "1.5.2",
+  "version": "1.5.5",
   "background": {
     "service_worker": "background.js",
     "type": "module"

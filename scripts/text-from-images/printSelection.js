@@ -1,4 +1,4 @@
-import { initModel, getGeminiText } from '../iaHandler.js';
+import { extractTextFromImage } from '../geminiAPI.js';
 import { showDictionaryBalloon } from '../dictionaryBallon.js';
 
 let screenshotDataUrl = null;
@@ -139,8 +139,7 @@ function cropAndSendImage(dataUrl, selection) {
         console.log(croppedDataUrl);
 
         try {
-            const model = await initModel();
-            const text = await getGeminiText(croppedDataUrl, model);
+            const text = await extractTextFromImage(croppedDataUrl);
             console.log("Texto extraído (diretamente no script de conteúdo):", text);
             showDictionaryBalloon(text);
 

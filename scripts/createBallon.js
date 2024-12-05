@@ -1,5 +1,5 @@
-import { createPrompt } from './prompts';
-import { runPrompt } from "./iaHandler.js";
+import { generatePrompt } from '../scripts/promptGenerator.js';
+import { runPrompt } from "./geminiAPI.js";
 import { getConfig } from "./config.js";
 
 export function createBalloon(text) {
@@ -150,7 +150,8 @@ export async function getAiResponse(userMessage, messageHistory, onStreamChunk =
   const recentMessages = getRecentMessages(messageHistory);
   const conversationContext = recentMessages.join("\n");
 
-  const prompt = createPrompt(userMessage, conversationContext, config.idioma);
+  //todo atualizar
+  const prompt = generatePrompt(null, 'conversation', conversationContext);
 
   if (onStreamChunk) {
     return await runPrompt(prompt, onStreamChunk);
