@@ -4,7 +4,7 @@ import { marked } from "marked";
 import { generatePrompt } from '../scripts/promptGenerator.js';
 import { createBalloon, positionBalloon } from './createBallon.js';
 
-const TYPING_SPEED = 5;
+const TYPING_SPEED = 3;
 // TODO: Investigar e corrigir o bug que exige estas variáveis globais.
 // O meaningDiv fica em branco se estas variáveis forem locais.
 let currentIndex = 0;
@@ -56,7 +56,7 @@ export async function showDictionaryBalloon(selectionOrWord) {
       accumulatedHtml = '';
 
       const prompt = generatePrompt(word, 'dictionary');
-      const handleChunk = (chunk) => updateMeaningContent(chunk, meaningDiv, TYPING_SPEED);
+      const handleChunk = (chunk) => typingEffect(chunk, meaningDiv, TYPING_SPEED);
       accumulatedText = '';
       await runPrompt(prompt, handleChunk);
     }
@@ -74,7 +74,7 @@ function createRangeFromSelection(savedSelection) {
   return range;
 }
 
-function updateMeaningContent(chunk, meaningDiv) {
+export function typingEffect(chunk, element) {
   accumulatedText += chunk;
   accumulatedHtml = marked(accumulatedText);
 
@@ -83,15 +83,15 @@ function updateMeaningContent(chunk, meaningDiv) {
   function typeEffect() {
     if (currentIndex < accumulatedHtml.length) {
       currentContent += accumulatedHtml[currentIndex];
-      meaningDiv.innerHTML = currentContent;
+      element.innerHTML = currentContent;
       currentIndex++;
       setTimeout(typeEffect, TYPING_SPEED);
     }
   }
 
-  if (meaningDiv) {
-    if (meaningDiv.textContent === "Carregando...") {
-      meaningDiv.textContent = '';
+  if (element) {
+    if (element.textContent === "Carregando...") {
+      element.textContent = '';
     }
     if (currentIndex === 0) {
       typeEffect();

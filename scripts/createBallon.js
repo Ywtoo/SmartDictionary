@@ -118,22 +118,23 @@ function addMessage(container, sender, message, balloon, isUpdate = false) {
       }
   }
 
-
-  // Typing Effect
-  let currentIndex = 0;
-  const typingSpeed = 7; 
-
   function type() {
-      if (currentIndex < message.length) {
-          messageElement.textContent += message[currentIndex];
-          currentIndex++;
-          setTimeout(type, typingSpeed);
+      // use local typing state to avoid relying on globals
+      if (localIndex < message.length) {
+        if (!messageElement.textContent) messageElement.textContent = '';
+        messageElement.textContent += message[localIndex];
+        localIndex++;
+        setTimeout(type, localTypingSpeed);
       } else {
-          container.scrollTop = container.scrollHeight;
+        container.scrollTop = container.scrollHeight;
       }
   }
 
-  type();
+    // local state for typing effect
+    let localIndex = 0;
+    const localTypingSpeed = 3;
+
+    type();
 }
 
 // Função para gerar o histórico e pegar as respostas
