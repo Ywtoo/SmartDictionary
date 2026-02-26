@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dictionary - Tutorial</title>
+    <link rel="stylesheet" href="src/styles/variables.css">
+    <link rel="stylesheet" href="src/styles/layout.css">
+    <link rel="stylesheet" href="src/styles/components.css">
+    <link rel="stylesheet" href="src/styles/social.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Smart Dictionary</h1>
+                <p class="subtitle">Aprenda idiomas de forma inteligente com IA</p>
+                <div class="cta-buttons">
+                    <a href="#download" class="button primary">Baixar Extensão</a>
+                    <a href="#tutorial" class="button secondary">Ver Tutorial</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="tutorial-container" id="tutorial">
+                <div class="progress-bar">
+                    <div id="tutorial-progress" class="progress"></div>
+                </div>
+                
+                <div class="tutorial-steps">
+                    <div class="tutorial-step active">
+                        <h2>Passo 1: Obter API Key do Gemini</h2>
+                        <div class="step-content">
+                            <p>Acesse o Google AI Studio para obter sua chave API.</p>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step">
+                        <h2>Passo 2: Instalar a Extensão</h2>
+                        <div class="step-content">
+                            <p>Baixe e instale a extensão Smart Dictionary no Chrome.</p>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-step">
+                        <h2>Passo 3: Configuração</h2>
+                        <div class="step-content">
+                            <p>Configure a extensão com sua API Key.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-navigation">
+                    <button id="prev-step" class="nav-button">Anterior</button>
+                    <div class="step-indicators"></div>
+                    <button id="next-step" class="nav-button">Próximo</button>
+                </div>
+            </div>
+        </main>
+
+        <section class="social-section">
+            <h2 class="text-center">Conecte-se Comigo</h2>
+            <div class="social-grid">
+                <div class="social-card">
+                    <i class="fab fa-github social-icon"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/yourusername" class="social-link">@yourusername</a>
+                </div>
+                <div class="social-card">
+                    <i class="fab fa-linkedin social-icon"></i>
+                    <h3>LinkedIn</h3>
+                    <a href="https://linkedin.com/in/yourusername" class="social-link">Seu Nome</a>
+                </div>
+                <div class="social-card">
+                    <i class="fab fa-twitter social-icon"></i>
+                    <h3>Twitter</h3>
+                    <a href="https://twitter.com/yourusername" class="social-link">@yourusername</a>
+                </div>
+                <div class="social-card">
+                    <i class="fab fa-youtube social-icon"></i>
+                    <h3>YouTube</h3>
+                    <a href="https://youtube.com/@yourchannel" class="social-link">Seu Canal</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Desenvolvido com <i class="fas fa-heart" style="color: var(--primary-blue);"></i> para facilitar seu aprendizado</p>
+        </footer>
+    </div>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

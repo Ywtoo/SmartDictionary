@@ -1,54 +1,225 @@
-# SmartDictionary
+# 🧠 SmartDictionary — AI-Powered Chrome Extension  
 
-Esta extensão para o navegador Chrome é um **dicionário inteligente** que permite acessar significados de palavras e frases de forma rápida e prática. Além disso, a extensão oferece uma funcionalidade exclusiva de **leitura de texto em imagens**, tornando-a uma ferramenta indispensável para estudantes, profissionais e curiosos.
+<p align="center">
+  <a href="#-english-version">🇺🇸 English</a> |
+  <a href="#-versão-em-português">🇧🇷 Português</a>
+</p>
 
----
-
-## Funcionalidades 🛠️
-
-- **Busca de Significados**: Selecione qualquer texto na página e descubra o significado instantaneamente.
-- **Captura de Tela**: Utilize a extensão para capturar texto diretamente de imagens e obtenha a definição ou tradução.
-- **Personalização de API**: Configure sua própria API para buscar significados, permitindo flexibilidade e controle sobre os resultados.
-- **Interface Intuitiva**: Design simples e fácil de usar.
-- **Correção de Bugs**: Melhorias constantes para garantir uma experiência sem falhas.
-
----
-
-## Como Usar? 📖
-
-1. **Instale a extensão** no Chrome.
-2. **Selecione um texto** ou use a ferramenta de captura de tela para extrair textos de imagens.
-3. Receba o significado diretamente na extensão!
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-In%20Development-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Google-Generative%20AI-8E75B2?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/OCR-Enabled-success?style=for-the-badge" />
+</p>
 
 ---
 
-## Instalação 🖥️
+# 🇺🇸 English Version
 
-1. Baixe ou clone este repositório:
-   ```bash
-   git clone https://github.com/seuusuario/nome-do-repositorio.git
-   ```
-2. Use os seguintes comandos:
-   ```bash
-   npm install
-   ```
-   ```bash
-   npm run build
-   ``` 
-3. No navegador Chrome, acesse chrome://extensions/.
-5. Ative o modo de desenvolvedor no canto superior direito.
-6. Clique em "Carregar sem compactação" e selecione a pasta do repositório.
-A extensão será carregada e estará pronta para uso!
+## 📌 Overview
 
-## Tecnologias Utilizadas 💻
+SmartDictionary is a Chrome Extension that enhances the browsing experience by providing instant AI-powered definitions and OCR-based text extraction directly on any webpage.
+
+It integrates Google Generative AI models to deliver contextual explanations and allows follow-up interactions via an inline chat interface.
+
+---
+
+## 🚀 Features
+
+- 📖 Context-aware word definitions on text selection  
+- 💬 Embedded quick chat for follow-up questions  
+- 🖼 OCR text extraction from images  
+- 🔐 Secure API key storage using `chrome.storage.sync`  
+- ⚙️ Background Service Worker architecture  
+- 📦 Automated build system with version synchronization  
+
+---
+
+## 🛠 Tech Stack
+
+- JavaScript (ES6+)
+- Chrome Extension APIs
+- Google Generative AI (`@google/genai`)
+- OCR Processing
+- Node.js & npm (build system)
+
+---
+
+## 🏗 Project Structure
+
+```text
+├── background.js        # Service worker
+├── scripts/             # Core logic (API, OCR, UI balloon, prompts)
+├── popup/               # Extension popup interface
+├── dist/                # Bundled content scripts
+├── manifest.json        # Extension configuration
+└── package.json         # Build scripts & dependencies
+```
+
+---
+
+## ⚙️ Installation (Local Development)
+
+### 1️⃣ Clone repository
+
+```bash
+git clone https://github.com/Ywtoo/SmartDictionary.git
+cd SmartDictionary
+```
+
+### 2️⃣ Install dependencies and build
+
+```bash
+npm install
+npm run build
+```
+
+### 3️⃣ Load into Chrome
+
+- Open `chrome://extensions/`
+- Enable **Developer Mode**
+- Click **Load unpacked**
+- Select the project folder
+
+---
+
+## 🔑 API Configuration
+
+Set your Google Generative AI API Key:
+
+- Configure `apiKey` via extension settings
+- Or store it using `chrome.storage.sync`
+
+> Note: Some models may require access permissions.
+
+---
+
+## 🧪 Development Scripts
+
+- `npm run build` → Generates bundles and syncs version with `manifest.json`
+- `npm run ver` → Syncs version between `manifest.json` and `package.json`
+
+---
+
+## 📦 Release
+
+Production-ready builds are available in the **Releases** section.
+
+---
+
+## 📜 License
+
+See `LICENSE` for details.
+
+---
+
+## 👨‍💻 Author
+
+Gabriel Nascimento
 
 
-![NODEJS](https://img.shields.io/badge/NODE.js-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+# 🇧🇷 Versão em Português
 
-![GEMINI](https://img.shields.io/badge/%20%20%20%20Gemini%20API%20%20%20%20-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white&logoWidth=25)
+## 📌 Visão Geral
 
-## Contribuições 🤝
-Sinta-se à vontade para abrir issues e pull requests. Toda ajuda é bem-vinda para melhorar este projeto!
+O SmartDictionary é uma extensão para o Google Chrome que melhora a experiência de navegação fornecendo definições instantâneas alimentadas por IA e extração de texto de imagens (OCR) diretamente em qualquer página.
+
+A extensão integra modelos generativos do Google para fornecer explicações contextuais e permite interações adicionais por meio de um chat embutido.
+
+---
+
+## 🚀 Funcionalidades
+
+- 📖 Definição contextual ao selecionar palavras
+- 💬 Chat embutido para perguntas de acompanhamento
+- 🖼 Extração de texto de imagens (OCR)
+- 🔐 Armazenamento seguro da API Key usando `chrome.storage.sync`
+- ⚙️ Arquitetura baseada em Service Worker
+- 📦 Sistema de build com sincronização de versão
+
+---
+
+## 🛠 Tecnologias
+
+- JavaScript (ES6+)
+- APIs de Extensão do Chrome
+- Google Generative AI (`@google/genai`)
+- OCR
+- Node.js & npm (sistema de build)
+
+---
+
+## 🏗 Estrutura do Projeto
+
+```text
+├── background.js        # Service worker
+├── scripts/             # Lógica central (API, OCR, UI balloon, prompts)
+├── popup/               # Interface do popup da extensão
+├── dist/                # Scripts empacotados
+├── manifest.json        # Configuração da extensão
+└── package.json         # Scripts de build e dependências
+```
+
+---
+
+## ⚙️ Instalação (Desenvolvimento Local)
+
+### 1️⃣ Clonar repositório
+
+```bash
+git clone https://github.com/Ywtoo/SmartDictionary.git
+cd SmartDictionary
+```
+
+### 2️⃣ Instalar dependências e build
+
+```bash
+npm install
+npm run build
+```
+
+### 3️⃣ Carregar no Chrome
+
+- Abra `chrome://extensions/`
+- Ative **Developer Mode**
+- Clique em **Load unpacked**
+- Selecione a pasta do projeto
+
+---
+
+## 🔑 Configuração da API
+
+Defina sua Google Generative AI API Key:
+
+- Configure `apiKey` via configurações da extensão
+- Ou armazene usando `chrome.storage.sync`
+
+> Obs: Alguns modelos podem requerer permissões de acesso na sua conta.
+
+---
+
+## 🧪 Scripts de Desenvolvimento
+
+- `npm run build` → Gera os bundles e sincroniza a versão com `manifest.json`
+- `npm run ver` → Sincroniza a versão entre `manifest.json` e `package.json`
+
+---
+
+## 📦 Release
+
+Builds prontos para produção estão disponíveis na seção **Releases**.
+
+---
+
+## 📜 Licença
+
+Consulte o arquivo `LICENSE` para mais detalhes.
+
+---
+
+## 👨‍💻 Autor
+
+Gabriel Nascimento
+
+

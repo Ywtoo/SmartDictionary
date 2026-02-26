@@ -1,0 +1,125 @@
+.tutorial-container {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+  padding: 2.5rem;
+  margin: -4rem auto 4rem;
+  position: relative;
+  z-index: 10;
+  max-width: 1000px;
+}
+
+.progress-bar {
+  height: 0.5rem;
+  background: var(--gray-100);
+  border-radius: 999px;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.tutorial-step {
+  display: none;
+  padding: 2rem;
+  background: var(--gray-50);
+  border-radius: 1rem;
+  border: 1px solid var(--gray-200);
+}
+
+.tutorial-step.active {
+  display: block;
+  animation: slideIn 0.5s ease-out;
+}
+
+.step-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.step-content img {
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+.step-text h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--dark);
+}
+
+.step-text p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--light-dark);
+  margin-bottom: 2rem;
+}
+
+.tutorial-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.nav-button {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--primary-blue);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  background: var(--secondary-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.nav-button:disabled {
+  background: var(--gray-200);
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .tutorial-container {
+    margin: -2rem 1rem 2rem;
+    padding: 1.5rem;
+  }
+
+  .step-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .step-text h2 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,18 +1,20 @@
 {
   "name": "smart-dictionary",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build": "npm run ver && rollup -c",
+    "watch": "rollup -c -w",
+    "ver": "node scripts/syncVersion.js",
+    "make-icons": "node scripts/makeIcons.js",
+    "apply-icons": "node scripts/makeIcons.js --apply"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@google/generative-ai": "^0.15.0",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-html": "^1.0.4",
     "@rollup/plugin-json": "^6.1.0",
@@ -20,8 +22,10 @@
     "rollup": "^4.22.4"
   },
   "dependencies": {
+    "@google/genai": "^0.6.0",
     "html2canvas": "^1.4.1",
     "marked": "^15.0.0",
-    "rollup-plugin-polyfill-node": "^0.13.0"
+    "rollup-plugin-polyfill-node": "^0.13.0",
+    "sharp": "^0.34.5"
   }
 }
