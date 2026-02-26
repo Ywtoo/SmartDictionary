@@ -7,9 +7,10 @@
   "scripts": {
     "build": "npm run ver && rollup -c",
     "watch": "rollup -c -w",
-    "ver": "node scripts/syncVersion.js",
-    "make-icons": "node scripts/makeIcons.js",
-    "apply-icons": "node scripts/makeIcons.js --apply"
+    "ver": "node tools/syncVersion.js",
+    "release": "node tools/release.js",
+    "make-icons": "node tools/makeIcons.js",
+    "apply-icons": "node tools/makeIcons.js --apply"
   },
   "keywords": [],
   "author": "",
