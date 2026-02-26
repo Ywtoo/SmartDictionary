@@ -1,4 +1,35 @@
 dist
 .vscode
 node_modules
+# environment
+.env
+.env.*
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+
+# build/output helpers
+/.cache
+/.parcel-cache
+
+# release package
+release/
+*.zip
+
+# icon generator temporary files
+icons/src-resized-*.png
+icons/generated/
+
+# test / coverage
+coverage/
+
 
