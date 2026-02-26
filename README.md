@@ -76,11 +76,14 @@ npm run build
 ```
 
 ### 3️⃣ Load into Chrome
+ - Open `chrome://extensions/`
+ - Enable **Developer Mode**
+ - Click **Load unpacked**
+ - Select the project folder
 
-- Open `chrome://extensions/`
-- Enable **Developer Mode**
-- Click **Load unpacked**
-- Select the project folder
+> Important: during development this extension should be loaded in **Developer Mode** using "Load unpacked". If you're developing, run `npm run build` before loading so `dist/` matches `manifest.json`.
+
+If you just want to install the extension without building the project, download a release ZIP (from the project's Releases page), extract it and use **Load unpacked** on the extracted folder (it must include `manifest.json` and a `dist/` folder with built files).
 
 ---
 
@@ -184,9 +187,10 @@ npm run build
 - Abra `chrome://extensions/`
 - Ative **Developer Mode**
 - Clique em **Load unpacked**
-- Selecione a pasta do projeto
+ - Selecione a pasta do projeto
 
----
+> Importante: durante o desenvolvimento esta extensão deve ser carregada em **Developer Mode** usando "Load unpacked". Se quiser apenas instalar a extensão sem compilar o projeto, baixe o ZIP da seção **Releases**, extraia e use **Load unpacked** na pasta extraída (ela deve conter `manifest.json` e a pasta `dist/` com os arquivos construídos).
+
 
 ## 🔑 Configuração da API
 
