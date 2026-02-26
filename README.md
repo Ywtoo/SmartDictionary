@@ -1,4 +1,4 @@
-# 🧠 SmartDictionary — AI-Powered Chrome Extension  
+# 🧠 SmartDictionary — AI-Powered Chrome Extension
 
 <p align="center">
   <a href="#-english-version">🇺🇸 English</a> |
@@ -6,6 +6,7 @@
 </p>
 
 <p align="center">
+<img src="https://img.shields.io/github/v/release/Ywtoo/smart-dictionary-extension?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Status-In%20Development-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
@@ -27,12 +28,12 @@ It integrates Google Generative AI models to deliver contextual explanations and
 
 ## 🚀 Features
 
-- 📖 Context-aware word definitions on text selection  
-- 💬 Embedded quick chat for follow-up questions  
-- 🖼 OCR text extraction from images  
-- 🔐 Secure API key storage using `chrome.storage.sync`  
-- ⚙️ Background Service Worker architecture  
-- 📦 Automated build system with version synchronization  
+- 📖 Context-aware word definitions on text selection
+- 💬 Embedded quick chat for follow-up questions
+- 🖼 OCR text extraction from images
+- 🔐 Secure API key storage using `chrome.storage.sync`
+- ⚙️ Background Service Worker architecture
+- 📦 Automated build system with version synchronization
 
 ---
 
@@ -76,10 +77,11 @@ npm run build
 ```
 
 ### 3️⃣ Load into Chrome
- - Open `chrome://extensions/`
- - Enable **Developer Mode**
- - Click **Load unpacked**
- - Select the project folder
+
+- Open `chrome://extensions/`
+- Enable **Developer Mode**
+- Click **Load unpacked**
+- Select the project folder
 
 > Important: during development this extension should be loaded in **Developer Mode** using "Load unpacked". If you're developing, run `npm run build` before loading so `dist/` matches `manifest.json`.
 
@@ -120,7 +122,6 @@ See `LICENSE` for details.
 ## 👨‍💻 Author
 
 Gabriel Nascimento
-
 
 # 🇧🇷 Versão em Português
 
@@ -187,10 +188,9 @@ npm run build
 - Abra `chrome://extensions/`
 - Ative **Developer Mode**
 - Clique em **Load unpacked**
- - Selecione a pasta do projeto
+- Selecione a pasta do projeto
 
 > Importante: durante o desenvolvimento esta extensão deve ser carregada em **Developer Mode** usando "Load unpacked". Se quiser apenas instalar a extensão sem compilar o projeto, baixe o ZIP da seção **Releases**, extraia e use **Load unpacked** na pasta extraída (ela deve conter `manifest.json` e a pasta `dist/` com os arquivos construídos).
-
 
 ## 🔑 Configuração da API
 
@@ -225,5 +225,3 @@ Consulte o arquivo `LICENSE` para mais detalhes.
 ## 👨‍💻 Autor
 
 Gabriel Nascimento
-
-
