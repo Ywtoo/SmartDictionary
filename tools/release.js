@@ -49,24 +49,28 @@ async function main() {
   // 2) determine new version
   const manifest = readJson(manifestPath);
   const pkg = readJson(packagePath);
-  let newVersion = opts.version || manifest.version;
-  if (!opts.version) {
-    newVersion = bumpVersion(manifest.version || pkg.version || '0.1.0');
+  let newVersion = manifest.version;
+  // Only change the version if user explicitly passed --version
+  if (opts.version) {
+    newVersion = opts.version;
+    // update manifest version
+    manifest.version = newVersion;
+    writeJson(manifestPath, manifest);
+    console.log('Updated', manifestPath, '->', newVersion);
+  } else {
+    console.log('No --version supplied: keeping manifest version', newVersion);
   }
 
-  // 3) update manifest version and sync package.json (call existing sync script if present)
-  manifest.version = newVersion;
-  writeJson(manifestPath, manifest);
-  console.log('Updated', manifestPath, '->', newVersion);
-
-  // If a sync script exists, run it to update package.json
+  // If a sync script exists, run it to update package.json (this will be a no-op if versions already match)
   const syncScript = path.join(root, 'tools', 'syncVersion.js');
   if (fs.existsSync(syncScript)) {
     run(`node "${syncScript}"`);
   } else {
-    // fallback: update package.json version to match
-    pkg.version = newVersion;
-    writeJson(packagePath, pkg);
+    // fallback: update package.json version to match (only if user provided --version)
+    if (opts.version) {
+      pkg.version = newVersion;
+      writeJson(packagePath, pkg);
+    }
   }
 
   // 4) build
@@ -82,6 +86,8 @@ async function main() {
   copy(path.join(root, 'dist'), path.join(releaseDir, 'dist'));
   copy(manifestPath, path.join(releaseDir, 'manifest.json'));
   copy(path.join(root, 'icons'), path.join(releaseDir, 'icons'));
+  // include styles referenced by manifest
+  copy(path.join(root, 'styles'), path.join(releaseDir, 'styles'));
   copy(path.join(root, 'popup'), path.join(releaseDir, 'popup'));
   copy(path.join(root, 'background.js'), path.join(releaseDir, 'background.js'));
   copy(path.join(root, 'README.md'), path.join(releaseDir, 'README.md'));
@@ -89,7 +95,7 @@ async function main() {
 
   // 6) create zip
   const zipName = `SmartDictionary-v${newVersion}.zip`;
-  const zipPath = path.join(root, zipName);
+  const zipPath = path.join(releaseDir, zipName);
   try { fs.unlinkSync(zipPath); } catch(e){}
   if (process.platform === 'win32') {
     // use PowerShell Compress-Archive with robust quoting to handle spaces in paths

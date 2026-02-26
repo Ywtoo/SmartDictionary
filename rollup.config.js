@@ -13,9 +13,8 @@ export default [
     },
     plugins: [
       resolve({ browser: true, mainFields: ['browser', 'module', 'main'] }),
-      commonjs(),
+      commonjs({ include: /node_modules/ }),
       json(),
-      polyfillNode(),
     ]
   },
   {
@@ -27,7 +26,7 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs()
+      commonjs({ include: /node_modules/ })
     ]
   },
 ];

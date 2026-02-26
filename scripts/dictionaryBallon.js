@@ -2,7 +2,7 @@ import { runPrompt } from "./geminiAPI.js";
 import { getConfig } from "./config.js";
 import { marked } from "marked";
 import { generatePrompt } from '../scripts/promptGenerator.js';
-import { createBalloon, positionBalloon } from './createBallon.js';
+import { createBalloon, positionBalloon } from './createBallon.mjs';
 
 const TYPING_SPEED = 3;
 // TODO: Investigar e corrigir o bug que exige estas variáveis globais.
@@ -152,6 +152,20 @@ function adjustStartIndex(textContent, index) {
 // -------------------------Erros-------------------------------
 function handleError(error) {
   console.error('Error in showDictionaryBalloon:', error);
+  const msg = error && error.message ? error.message : '';
+  // If it's an API key problem, don't show the balloon — open the popup instead
+  if (msg.includes('API key')) {
+    try {
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+        chrome.runtime.sendMessage({ action: 'open_api_popup' }, () => {});
+      }
+    } catch (e) {
+      console.warn('Could not notify background to open popup:', e);
+    }
+    clearPreviousBalloon();
+    return;
+  }
+
   const balloon = document.querySelector(".dictionary-balloon");
   if (balloon) {
     const meaningDiv = balloon.querySelector(".meaning");

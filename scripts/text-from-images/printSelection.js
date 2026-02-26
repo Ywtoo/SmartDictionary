@@ -1,6 +1,3 @@
-import { extractTextFromImage } from '../geminiAPI.js';
-import { showDictionaryBalloon } from '../dictionaryBallon.js';
-
 let screenshotDataUrl = null;
 console.log("screenshot Declarado");
 let selection = null;
@@ -109,14 +106,13 @@ chrome.runtime.onMessage.addListener((message) => {
     } else if (message.action === 'screenshotCaptured') { // <<< Adicione este listener
         screenshotDataUrl = message.dataUrl;
         if (selection) {
-           extractedText = cropAndSendImage(screenshotDataUrl, selection);
-           //chamar função de balão
-           
-
+           cropAndSendImage(screenshotDataUrl, selection);
+           // processing will be handled in background; result will arrive via 'geminiResult'
         }
     } else if (message.action === 'geminiResult') {
-        console.log("Texto recebido do Gemini:", message.text); // Exibe o texto
-        // ... (seu código para usar o texto) ...
+        console.log("Texto recebido do Gemini:", message.text);
+        // Create a simple balloon to show the text
+        createSimpleBalloon(message.text);
     } else if (message.action === 'geminiError') {
         console.error("Erro do Gemini:", message.error); // Exibe o erro
         alert("Erro ao processar a imagem: " + message.error); // Notifica o usuário
@@ -139,15 +135,49 @@ function cropAndSendImage(dataUrl, selection) {
         console.log(croppedDataUrl);
 
         try {
-            const text = await extractTextFromImage(croppedDataUrl);
-            console.log("Texto extraído (diretamente no script de conteúdo):", text);
-            showDictionaryBalloon(text);
+            // Send the cropped image to the background for processing (Gemini/OCR)
+            chrome.runtime.sendMessage({ action: 'processImage', dataUrl: croppedDataUrl }, (response) => {
+                if (chrome.runtime.lastError) {
+                    console.error('Erro enviando imagem para processamento:', chrome.runtime.lastError);
+                    alert('Erro ao enviar imagem para processamento');
+                    return;
+                }
+                if (response && response.success) {
+                    // Background will also send a 'geminiResult' message; we still create a simple balloon here
+                    console.log('Processamento iniciado no background, resultado poderá chegar por mensagem.');
+                } else {
+                    console.error('Falha no processamento iniciado:', response && response.error);
+                    alert('Falha ao processar imagem: ' + (response && response.error));
+                }
+            });
 
         } catch (error) {
-            console.error("Erro ao processar a imagem:", error);
-            alert("Erro ao processar a imagem: " + error.message); // Notifica o usuário
+            console.error("Erro ao iniciar processamento da imagem:", error);
+            alert("Erro ao iniciar processamento da imagem: " + error.message);
         }
     };
     img.src = dataUrl;
-    return text;
+    return;
+}
+
+function createSimpleBalloon(text) {
+    try {
+        const balloon = document.createElement('div');
+        balloon.className = 'dictionary-balloon';
+        balloon.style.position = 'fixed';
+        balloon.style.right = '20px';
+        balloon.style.bottom = '20px';
+        balloon.style.maxWidth = '360px';
+        balloon.style.padding = '12px';
+        balloon.style.background = 'white';
+        balloon.style.border = '1px solid #ccc';
+        balloon.style.borderRadius = '8px';
+        balloon.style.boxShadow = '0 6px 18px rgba(0,0,0,0.12)';
+        balloon.style.zIndex = 100000;
+        balloon.textContent = text || '';
+        document.body.appendChild(balloon);
+        setTimeout(() => balloon.remove(), 12000);
+    } catch (e) {
+        console.warn('Could not create balloon:', e);
+    }
 }

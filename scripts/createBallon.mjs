@@ -92,7 +92,27 @@ async function enviarMensagem(inputField, meaningDiv, messageHistory, balloon) {
       }
     };
 
-    await getAiResponse(userMessage, messageHistory, updateChatUI);
+    try {
+      await getAiResponse(userMessage, messageHistory, updateChatUI);
+    } catch (err) {
+      // If API key is missing, ask background to open the extension popup and
+      // silently remove the balloon (do not show in-page errors).
+      const msg = err && err.message ? err.message : '';
+      if (msg.includes('API key')) {
+        try {
+          if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+            chrome.runtime.sendMessage({ action: 'open_api_popup' }, () => {});
+          }
+        } catch (e) {
+          console.warn('Could not notify background to open popup:', e);
+        }
+        if (balloon && balloon.remove) balloon.remove();
+        return;
+      }
+      // Fallback: log and add a minimal message so UI doesn't break
+      console.error('Error getting AI response:', err);
+      addMessage(messageHistory, "IA", "Ops, não foi possível obter resposta.", balloon, false);
+    }
   }
 }
 

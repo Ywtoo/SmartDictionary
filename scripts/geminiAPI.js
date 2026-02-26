@@ -10,7 +10,10 @@ async function initModel() {
     if (!aiClient) {
         const config = await getConfig();
         if (!config.apiKey) {
-            throw new Error('API key not configured. Configure the API key in extension settings.');
+            // Do not manipulate UI from this module. Throw a clear error
+            // so callers (content scripts) can handle it and notify the user
+            // via the extension popup instead of showing in-page errors.
+            throw new Error('API key not configured. Please set your API key in the extension settings.');
         }
         aiClient = new GoogleGenAI({ apiKey: config.apiKey });
     }

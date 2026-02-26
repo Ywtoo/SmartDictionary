@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "SmartDictionary",
   "description": "A dictionary using IA",
-  "version": "0.1.2",
-  "version_name": "0.1.0.beta",
+  "version": "0.1.1",
+  "version_name": "0.1.1.beta",
   "background": {
     "service_worker": "background.js",
     "type": "module"
@@ -39,6 +39,15 @@
       ],
       "matches": [
         "chrome-extension://*/*"
+      ]
+    }
+    ,
+    {
+      "resources": [
+        "scripts/text-from-images/printSelection.js"
+      ],
+      "matches": [
+        "<all_urls>"
       ]
     }
   ],
