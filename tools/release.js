@@ -92,22 +92,19 @@ async function main() {
   const zipPath = path.join(root, zipName);
   try { fs.unlinkSync(zipPath); } catch(e){}
   if (process.platform === 'win32') {
-    // use PowerShell Compress-Archive
-    run(`powershell Compress-Archive -Path "${releaseDir}\\*" -DestinationPath "${zipPath}" -Force`);
+    // use PowerShell Compress-Archive with robust quoting to handle spaces in paths
+    // Build a command string that wraps paths in single quotes inside the -Command argument
+    const safeReleaseDir = releaseDir.replace(/'/g, "''");
+    const safeZipPath = zipPath.replace(/'/g, "''");
+    const psCmd = `powershell -NoProfile -Command "Compress-Archive -Path '${safeReleaseDir}\\*' -DestinationPath '${safeZipPath}' -Force"`;
+    run(psCmd);
   } else {
     run(`zip -r "${zipPath}" "${releaseDir}"`);
   }
 
   console.log('Release created:', zipPath);
 
-  // 7) optional commit/tag
-  if (opts.commit) {
-    run('git add package.json manifest.json');
-    run(`git commit -m "chore(release): v${newVersion}"`);
-    if (opts.tag) {
-      run(`git tag -a v${newVersion} -m "v${newVersion}"`);
-    }
-  }
+  // Note: commit/tag intentionally skipped — this script only creates the release ZIP.
 }
 
 main().catch(err => { console.error(err); process.exit(1); });
