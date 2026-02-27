@@ -6,14 +6,12 @@
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/github/v/release/Ywtoo/smart-dictionary-extension?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Status-In%20Development-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/Google-Generative%20AI-8E75B2?style=for-the-badge&logo=google&logoColor=white" />
-  <img src="https://img.shields.io/badge/OCR-Enabled-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/STATUS-IN%20DEVELOPMENT-3b82f6?style=for-the-badge&labelColor=111827" />
+  <img src="https://img.shields.io/badge/TYPE-CHROME%20EXTENSION-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=111827" />
+  <img src="https://img.shields.io/badge/JAVASCRIPT-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=111827" />
+  <img src="https://img.shields.io/badge/AI-GOOGLE%20GEMINI-8E75B2?style=for-the-badge&logo=google&logoColor=white&labelColor=111827" />
+  <img src="https://img.shields.io/badge/OCR-ENABLED-22c55e?style=for-the-badge&labelColor=111827" />
 </p>
-
 ---
 
 # 🇺🇸 English Version
